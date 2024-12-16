@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.myproject.biz.mapper.UserMapper">
+
+    <select id="getUserById" parameterType="int" resultType="com.example.myproject.biz.dto.User">
+        SELECT id, name, email
+        FROM users
+        where id =#{id}
+    </select>
+
+    <select id="getAllUser" resultType="com.example.myproject.biz.com.CustomResultMap">
+        SELECT id, name, email, contents
+        FROM users
+    </select>
+
+</mapper>
