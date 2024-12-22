@@ -24,6 +24,7 @@ import axios from "axios";
 import CommonAgGrid from "@/components/api/CommonAgGrid.vue";
 
 export default {
+  name: 'SelectGridCombo',
   created() {
     this.getUserRoles()
   },
@@ -108,7 +109,7 @@ li {
 }
 .aggrid-view {
   padding-top: 10px;
-  width: 1000px;
+  width: 100%;
   height: 400px;
 }
 </style>
