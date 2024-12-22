@@ -12,16 +12,47 @@
     </ul>
     <p v-else>데이터가 없습니다.</p>
   </div>
+  <div class="aggrid-view">
+    <h1>Example Ag-Grid</h1>
+    <CommonAgGrid v-if="showGrid" :gridData="gridData" :gridColumns="gridColumns" :gridOptions="gridOptions" />
+  </div>
 </template>
 
 <script>
 
 import axios from "axios";
+import CommonAgGrid from "@/components/api/CommonAgGrid.vue";
 
 export default {
+  mounted() {
+    this.$nextTick(() => {
+      console.log("nextTick")
+      this.showGrid = true
+    });
+
+  },
+  components: {
+    CommonAgGrid,
+  },
   data() {
     return {
       users: [], // 사용자 데이터 저장
+      showGrid: false,
+      gridData: [
+        { name: "John", age: 30, job: "Developer" },
+        { name: "Jane", age: 25, job: "Designer" },
+      ],
+      gridColumns: [
+        { headerName: "Name", field: "name", sortable: true, filter: true },
+        { headerName: "Age", field: "age", sortable: true, filter: true },
+        { headerName: "Job", field: "job", sortable: true, filter: true },
+      ],
+      gridOptions: {
+        pagination: true,
+        defaultColDef: {
+          resizable: true,
+        },
+      },
     };
   },
   methods: {
@@ -50,7 +81,7 @@ export default {
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  text-align: center;
+  text-align: left;
   margin-top: 40px;
 }
 button {
@@ -65,5 +96,10 @@ ul {
 li {
   margin: 5px 0;
   font-size: 18px;
+}
+.aggrid-view {
+  padding-top: 10px;
+  width: 1000px;
+  height: 400px;
 }
 </style>
