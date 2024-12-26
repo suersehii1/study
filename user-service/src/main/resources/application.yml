@@ -1,0 +1,33 @@
+server:
+  port: 0
+
+logging:
+  level:
+    org:
+      mybatis: DEBUG
+      spring: DEBUG
+
+mybatis:
+  mapper-locations: classpath:mappers/*.xml
+
+spring:
+  application:
+    name: user-service
+  datasource:
+    url: jdbc:oracle:thin:@localhost:11521:XE
+    username: robin
+    password: 1234
+    driver-class-name: oracle.jdbc.OracleDriver
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
+
+greeting:
+  message: Welcome to the Simple E-commerce.
+

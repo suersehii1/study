@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.user_service.mapper.UserMapper">
+
+
+    <select id="getUserAll" resultType="com.example.user_service.vo.ResponseUser">
+        SELECT ID, NAME, EMAIL, CONTENTS
+        FROM USERS
+    </select>
+
+    <select id="getUserByUserId" parameterType="String" resultType="com.example.user_service.vo.ResponseUser">
+        select id, name, email, contents
+        from users
+        where id = #{id}
+    </select>
+
+
+    <insert id="createUser" parameterType="java.util.HashMap">
+        insert into users
+            (id, name, email, password)
+        values(
+            #{id}, #{name}, #{email}, #{password}
+        )
+    </insert>
+
+</mapper>
