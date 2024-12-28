@@ -1,21 +1,9 @@
 server:
   port: 0
 
-logging:
-  level:
-    org.mybatis: DEBUG
-    com.example.user_service: DEBUG
-
-mybatis:
-  mapper-locations: classpath:mappers/*.xml
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    map-underscore-to-camel-case: true
-
-
 spring:
   application:
-    name: user-service
+    name: order-service
   datasource:
     url: jdbc:oracle:thin:@localhost:11521:XE
     username: robin
@@ -31,11 +19,14 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
 
-greeting:
-  message: Welcome to the Simple E-commerce.
 
+mybatis:
+  mapper-locations: classpath:mappers/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
 
-token:
-  expiration_time: 86400000
-  secret: user_token_for_my_first_msa_application_login
-
+logging:
+  level:
+    com.exmample.order_service: DEBUG
+    org.mybatis: DEBUG

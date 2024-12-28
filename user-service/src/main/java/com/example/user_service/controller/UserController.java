@@ -8,6 +8,11 @@ import org.springframework.core.env.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -17,20 +22,20 @@ import java.util.Random;
 
 @RestController
 @RequestMapping("/user-service/")
-public class UserController {
+public class UserController implements UserDetailsService {
 
     private Environment env;
     private Greeting greeting;
     private UserMapper userMapper;
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(Environment env, Greeting greeting, UserMapper userMapper) {
+    public UserController(Environment env, Greeting greeting, UserMapper userMapper, BCryptPasswordEncoder passwordEncoder) {
         this.env = env;
         this.greeting = greeting;
         this.userMapper = userMapper;
-
+        this.passwordEncoder = passwordEncoder;
     }
-
 
     @GetMapping("/users")
     public ResponseEntity<List<ResponseUser>> getUserAll() {
@@ -88,7 +93,7 @@ public class UserController {
             HashMap<String, Object> insertData = new HashMap<>();
             insertData.put("id", String.valueOf(randomNumber));
             insertData.put("email", String.valueOf(user.getEmail()));
-            insertData.put("password", String.valueOf(user.getPassword()));
+            insertData.put("password", passwordEncoder.encode(user.getPassword()+""));
             insertData.put("name", String.valueOf(user.getName()));
 
             userMapper.createUser(insertData);
@@ -98,5 +103,24 @@ public class UserController {
         }
 
         return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+
+        System.out.println("loadUserByUsername........../userName"+ userName);
+
+        ResponseUser userInfo = userMapper.getUserByName(userName);
+
+        if (userInfo == null)
+            throw new UsernameNotFoundException(userName + ": not found");
+
+        return new User(userInfo.getName(), userInfo.getPassword(),
+                true, true, true, true,
+                new ArrayList<>());
+    }
+
+    public ResponseUser getUserByName(String userName) throws Exception {
+        return this.userMapper.getUserByName(userName);
     }
 }

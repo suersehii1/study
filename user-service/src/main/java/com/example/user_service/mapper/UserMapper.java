@@ -13,5 +13,6 @@ public interface UserMapper {
 
     List<ResponseUser> getUserAll();
     ResponseUser getUserByUserId(String userId);
+    ResponseUser getUserByName(String userName);
     void createUser(Map<String,Object> insertData);
 }

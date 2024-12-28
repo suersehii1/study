@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.order_service.mapper.OrderMapper">
+
+    <insert id="createOrder" parameterType="java.util.HashMap">
+        insert into ORDERS
+        (
+            ORDER_ID
+            ,PRODUCT_ID
+            ,QTY
+            ,UNIT_PRICE
+            ,TOTAL_PRICE
+            ,USER_ID
+            ,CREATE_AT
+        )
+        VALUES
+        (
+            #{orderId}
+            ,#{productId}
+            ,#{qty}
+            ,#{unitPrice}
+            ,#{totalPrice}
+            ,#{userId}
+            ,SYSDATE
+        )
+    </insert>
+
+    <select id="findOrderByUserId" parameterType="String" resultType="com.example.order_service.vo.ResponseOrder">
+        SELECT
+            ORDER_ID
+            ,PRODUCT_ID
+            ,QTY
+            ,UNIT_PRICE
+            ,TOTAL_PRICE
+            ,USER_ID
+            ,CREATE_AT
+        FROM ORDERS
+        WHERE USER_ID = #{userId}
+    </select>
+
+</mapper>

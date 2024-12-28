@@ -8,6 +8,9 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka
 
+token:
+  secret: user_token_for_my_first_msa_application_login
+
 spring:
   application:
     name: apigateway-service
@@ -17,12 +20,29 @@ spring:
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
+            - Path=/user-service/login
+            - Method=POST
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/users
+            - Method=POST
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
             - Path=/user-service/**
+            - Method=GET
+          filters:
+            - AuthorizationHeaderFilter
+
         - id: catalog-service
           uri: lb://CATALOG-SERVICE
           predicates:
             - Path=/catalog-service/**
-
+        - id: order-service
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - Path=/order-service/**
         - id: first-service
           uri: lb://FIRSTSERVICE
           predicates:
