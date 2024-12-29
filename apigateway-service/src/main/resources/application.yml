@@ -47,6 +47,9 @@ spring:
           predicates:
             - Path=/user-service/actuator/**
             - Method=GET,POST
+          filters:
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+
 
         - id: catalog-service
           uri: lb://CATALOG-SERVICE
