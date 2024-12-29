@@ -30,3 +30,11 @@ logging:
   level:
     com.exmample.order_service: DEBUG
     org.mybatis: DEBUG
+
+
+#Actuator 를 사용 하기 위해 아래내용 추가해야함.
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, httpexchanges, busrefresh, info, metrics, prometheus

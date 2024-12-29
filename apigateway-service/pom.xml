@@ -76,6 +76,21 @@
 		</dependency>
 		<!-- JWT TOKEN 발행 관련 의존성 END-->
 
+		<!-- Spring Cloud Config 사용을 위해 의존성 주입 start-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-bootstrap</artifactId>
+		</dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>		
+		<!-- Spring Cloud Config 사용을 위해 의존성 주입 end-->
+
 
 	</dependencies>
 	<dependencyManagement>

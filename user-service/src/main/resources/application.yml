@@ -35,7 +35,14 @@ greeting:
   message: Welcome to the Simple E-commerce.
 
 
-token:
-  expiration_time: 86400000
-  secret: user_token_for_my_first_msa_application_login
+#==Spring Cloud Config로 뺌==
+#token:
+#  expiration_time: 86400000
+#  secret: user_token_for_my_first_msa_application_login
 
+#Actuator 를 사용 하기 위해 아래내용 추가해야함.
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, httpexchanges, busrefresh, info, metrics, prometheus

@@ -67,7 +67,10 @@ public class UserController implements UserDetailsService {
 
     @GetMapping("/health-check")
     public String status() {
-        return String.format("It's working in User Service on PORT %s", this.env.getProperty("local.server.port"));
+        return String.format("It's working in User Service on PORT ("
+                +  this.env.getProperty("local.server.port") + ")"
+                + ", token expiration time=" + env.getProperty("token.expiration_time")
+        );
     }
 
 

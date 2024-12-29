@@ -9,5 +9,6 @@ spring:
     config:
       server:
         git:
-          uri: file://D:/private/study/gitRepository/study/ecomerce.yml
+#          uri: file://D:/private/study/gitRepository/study/ecomerce.yml
+          uri: https://github.com/suersehii1/study.git
 
