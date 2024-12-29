@@ -48,6 +48,7 @@ public class WebSecurity {
         http.csrf( (csrf) -> csrf.disable());
 
         http.authorizeHttpRequests((authz) -> authz
+                        .requestMatchers(new AntPathRequestMatcher("/actuator/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/user-service/actuator/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/user-service/users", "GET")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/user-service/users/**", "GET")).permitAll()
