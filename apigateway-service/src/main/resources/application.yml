@@ -8,6 +8,9 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka
 
+
+
+
 #==Spring Cloud Config로 뺌==
 #token:
 #  secret: user_token_for_my_first_msa_application_login
@@ -22,6 +25,11 @@ management:
 spring:
   application:
     name: apigateway-service
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
   cloud:
     gateway:
       routes:

@@ -76,11 +76,19 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-bootstrap</artifactId>
 		</dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-actuator</artifactId>
-    </dependency>
+		<dependency>
+		  <groupId>org.springframework.boot</groupId>
+		  <artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 		<!-- Spring Cloud Config 사용을 위해 의존성 주입 end-->
+
+		<!-- rabbimq 로 config 공유 하기 위한 의존성 주입 start -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-bus-amqp</artifactId>
+		</dependency>
+		<!-- rabbimq 로 config 공유 하기 위한 의존성 주입 end -->
+
 
 	</dependencies>
 	<dependencyManagement>

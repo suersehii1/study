@@ -41,6 +41,14 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- rabbimq 로 config 공유 하기 위한 의존성 주입 start -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-bus-amqp</artifactId>
+		</dependency>
+		<!-- rabbimq 로 config 공유 하기 위한 의존성 주입 end -->
+
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
