@@ -1,9 +1,13 @@
 package com.example.user_service.controller;
 
+import com.example.user_service.client.OrderServiceClient;
 import com.example.user_service.mapper.UserMapper;
 import com.example.user_service.vo.Greeting;
 import com.example.user_service.vo.RequestUser;
+import com.example.user_service.vo.ResponseOrder;
 import com.example.user_service.vo.ResponseUser;
+import feign.FeignException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +19,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,19 +27,23 @@ import java.util.Random;
 
 @RestController
 @RequestMapping("/user-service/")
+@Slf4j
 public class UserController implements UserDetailsService {
 
     private Environment env;
     private Greeting greeting;
     private UserMapper userMapper;
     private BCryptPasswordEncoder passwordEncoder;
+    private OrderServiceClient orderServiceClient;
 
     @Autowired
-    public UserController(Environment env, Greeting greeting, UserMapper userMapper, BCryptPasswordEncoder passwordEncoder) {
+    public UserController(Environment env, Greeting greeting, UserMapper userMapper, BCryptPasswordEncoder passwordEncoder
+            , OrderServiceClient orderServiceClient) {
         this.env = env;
         this.greeting = greeting;
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
+        this.orderServiceClient = orderServiceClient;
     }
 
     @GetMapping("/users")
@@ -54,8 +63,22 @@ public class UserController implements UserDetailsService {
     public ResponseEntity<ResponseUser> getUserByUserId(@PathVariable("userId") String userId ) {
 
         ResponseUser result = null;
+        List<ResponseOrder> ordersList = null;
+
         try {
             result = this.userMapper.getUserByUserId(userId);
+
+            /* Using a feign client */
+            /* #2 Feign exception handling */
+            try {
+                ordersList = orderServiceClient.findOrderByUserId(userId);
+                result.setOrders(ordersList == null || ordersList.size() == 0 ? new ArrayList(): ordersList);
+
+            } catch (FeignException ex) {
+                log.error(ex.getMessage());
+            }
+
+
         } catch (Exception ex) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
