@@ -5,9 +5,8 @@
     <button @click="fetchUsers">User 목록 가져오기</button>
     <ul v-if="users.length">
       <li v-for="(user, index) in users" :key="index">
-        {{ user.ID }} - {{ user.NAME }} - {{ user.EMAIL }}
-        {{ user.CONTENTS }}
-        <br>
+        {{ user.USER_ID }} - {{ user.USER_NAME }} - {{ user.EMAIL }}
+         <br>
       </li>
     </ul>
     <p v-else>데이터가 없습니다.</p>
@@ -44,12 +43,9 @@ export default {
       showGrid: false,
       gridData: [],
       gridColumns: [
-        { headerName: "ID", field: "ID", sortable: true, filter: true },
-        { headerName: "NAME", field: "NAME", sortable: true, filter: true },
+        { headerName: "ID", field: "USER_ID", sortable: true, filter: true },
+        { headerName: "NAME", field: "USER_NAME", sortable: true, filter: true },
         { headerName: "EMAIL", field: "EMAIL", sortable: true, filter: true },
-        { headerName: "ROLE_ID", field: "ROLE_ID", sortable: true, filter: true },
-        { headerName: "ROLE_NAME", field: "ROLE_NAME", sortable: true, filter: true },
-        { headerName: "ASSIGNED_AT", field: "ASSIGNED_AT", sortable: true, filter: true },
       ],
       gridOptions: {
         pagination: true,
@@ -62,6 +58,10 @@ export default {
   methods: {
     getUserRoles() {
       const token = localStorage.getItem('token'); // JWT 토큰 가져오기
+
+      debugger
+      console.log(token)
+
       axios.get("http://localhost:8080/api/user/getUserRoles", {
         headers: { Authorization: `Bearer ${token}` },
       }).then((res) => {

@@ -12,4 +12,5 @@ import java.util.List;
 public interface UserMapper {
     User getUserById(@Param("id") int id); // 매퍼 XML에 정의된 SQL과 매핑되는 메서드
     List<CustomResultMap> getAllUser();
+    List<CustomResultMap> getUserRoles();
 }

@@ -3,14 +3,23 @@
 <mapper namespace="com.example.myproject.biz.mapper.UserMapper">
 
     <select id="getUserById" parameterType="int" resultType="com.example.myproject.biz.dto.User">
-        SELECT id, name, email
+        SELECT USER_ID, USER_NAME, EMAIL
         FROM users
         where id =#{id}
     </select>
 
     <select id="getAllUser" resultType="com.example.myproject.biz.com.CustomResultMap">
-        SELECT id, name, email, contents
+        SELECT USER_ID, USER_NAME, EMAIL
         FROM users
+    </select>
+
+    <select id="getUserRoles" resultType="com.example.myproject.biz.com.CustomResultMap">
+        SELECT A.USER_ID, A.USER_NAME, A.EMAIL, C.ROLE_ID, C.ROLE_NAME
+        FROM USERS A
+        , USER_ROLES B
+        , ROLES C
+        WHERE A.USER_ID = B.USER_ID
+        AND B.ROLE_ID = C.ROLE_ID
     </select>
 
 </mapper>

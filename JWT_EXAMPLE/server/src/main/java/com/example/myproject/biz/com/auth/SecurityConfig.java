@@ -20,6 +20,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) // CORS 설정
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/login").permitAll()
+                        .requestMatchers("/api/portal/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilter(new CustomAuthenticationFilter(authenticationManager))

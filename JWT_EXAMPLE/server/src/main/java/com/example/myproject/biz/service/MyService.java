@@ -36,6 +36,12 @@ public class MyService {
 //        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 //    }
 
+
+
+
+
+
+
     // ID로 사용자 정보 조회
     @GetMapping("/user/{id}")
     public User getUserById(@PathVariable("id") int id) {
@@ -51,5 +57,12 @@ public class MyService {
     public List<CustomResultMap> getAllUser() {
         System.out.println("start..");
         return userMapper.getAllUser();
+    }
+
+    // 모든 유저의 role을 가져온다.
+    @GetMapping("/user/getUserRoles")
+    public List<CustomResultMap> getUserRoles() {
+        System.out.println("getUserRoles-start..");
+        return userMapper.getUserRoles();
     }
 }
