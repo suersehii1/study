@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Login from './components/portal/Login';
-import MainPage from './components/portal/menu/MainPage';
+import MainPage from './components/portal/menu/layout/MainPage';
 
 function App() {
     const [isAuthenticated, setIsAuthenticated] = React.useState(false);

@@ -3,11 +3,13 @@ import {Navbar, Nav, Container, NavDropdown} from 'react-bootstrap';
 import {Routes, Route, Link, Navigate} from 'react-router-dom';
 import axios from 'axios';
 import MultiLevelDropdown from './MultiLevelDropdown';
-import Home from 'components/portal/menu/Home';
-import ManageUser from "./admin/ManageUser";
+import Home from 'components/portal/menu/layout/Home';
+import ManageUser from 'components/portal/menu/admin/ManageUser';
+import ManageRole from 'components/portal/menu/admin/ManageRole';
+import ManageMenu from 'components/portal/menu/admin/MangeMenu';
 
 const componentMap = {
-    '/about': React.lazy(() => import('components/portal/menu/About')),
+    '/about': React.lazy(() => import('components/portal/menu/layout/About')),
     '/service/service-c': React.lazy(() => import('components/biz/ServiceC')),
     '/service/service-a/sub-a1': React.lazy(() => import('components/biz/SubServiceA1')),
     '/service/service-a/sub-a2': React.lazy(() => import('components/biz/SubServiceA2')),
@@ -91,8 +93,7 @@ function MainPage() {
                             }
                         </Nav>
                         <Nav style={{flex: '0 0 10%'}} className="ms-auto">
-                            {/*<Nav.Link as={Link} to="/main/admin">Admin</Nav.Link>*/}
-                            <NavDropdown title="Setting" id="basic-nav-dropdown" menuVariant="dark">
+                            <NavDropdown title="Admin" id="basic-nav-dropdown" menuVariant="dark">
                                 <NavDropdown.Item as={Link} to="/main/manage-menu" onClick={() => handleMenuClick('Setting > 메뉴 관리')} >메뉴 관리</NavDropdown.Item>
                                 <NavDropdown.Item as={Link} to="/main/manage-role" onClick={() => handleMenuClick('Setting > 권한 관리')}>권한 관리</NavDropdown.Item>
                                 <NavDropdown.Item as={Link} to="/main/manage-user" onClick={() => handleMenuClick('Setting > 사용자 관리')}>사용자 관리</NavDropdown.Item>
@@ -134,8 +135,8 @@ function MainPage() {
                         <Route path="/" element={<Navigate to="/main/home"/>}/>
                         <Route path="/home" element={<Home/>}/>
                         <Route path="/manage-user" element={<ManageUser/>}/>
-
-
+                        <Route path="/manage-role" element={<ManageRole/>}/>
+                        <Route path="/manage-menu" element={<ManageMenu/>}/>
 
 
 
